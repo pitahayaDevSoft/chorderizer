@@ -149,16 +149,16 @@ class ConfigManager:
             try:
                 with open(self.config_path) as f:
                     return json.load(f)
-            except Exception:
-                pass
+            except Exception as e:
+                logging.debug(f"Failed to load config: {e}")
         return {"theme": "chromatic-pro", "mouse_enabled": True, "advanced_mode": False}
 
     def save(self, settings: Dict[str, Any]):
         try:
             with open(self.config_path, "w") as f:
                 json.dump(settings, f, indent=4)
-        except Exception:
-            pass
+        except Exception as e:
+            logging.debug(f"Failed to save config: {e}")
 
 
 class ThemePalette(ModalScreen):
@@ -637,6 +637,17 @@ class ChorderizerApp(App):
         self.query_one("#inversion-set").tooltip = Translations.t("tooltip_inv")
         self.query_one("#btn-export").tooltip = Translations.t("tooltip_export")
 
+        # Jam mode tooltips
+        self.query_one("#jam-tonic-select").tooltip = Translations.t(
+            "tooltip_tonic", default="Select the root note for the Jam Scale"
+        )
+        self.query_one("#jam-scale-list").tooltip = Translations.t(
+            "jam_scale_list", default="Select a scale to practice"
+        )
+        self.query_one("#jam-mood-list").tooltip = Translations.t(
+            "moods", default="Filter scales by emotional preset"
+        )
+
         table = self.query_one("#chord-table", DataTable)
         table.tooltip = Translations.t("tooltip_table")
         table.add_columns(Translations.t("degree"), Translations.t("name"), Translations.t("midi"))
@@ -859,17 +870,19 @@ class ChorderizerApp(App):
             self.query_one("#progression-sidebar", ProgressionPanel).add_chord(
                 self.selected_row_data
             )
+            msg = Translations.t("status_chord_added", name=self.selected_row_data["name"])
             self.log_status(
-                Translations.t("status_chord_added", name=self.selected_row_data["name"]),
+                msg,
                 "COMPOSER",
                 icon=IconManager.get("plus"),
             )
+            self.notify(f"Added {self.selected_row_data['name']}")
 
     def action_clear_progression(self) -> None:
         self.query_one("#progression-sidebar", ProgressionPanel).clear_prog()
-        self.log_status(
-            Translations.t("status_list_reset"), "COMPOSER", icon=IconManager.get("broom")
-        )
+        msg = Translations.t("status_list_reset")
+        self.log_status(msg, "COMPOSER", icon=IconManager.get("broom"))
+        self.notify(msg)
 
     def action_export_midi(self) -> None:
         prog_panel = self.query_one("#progression-sidebar", ProgressionPanel)

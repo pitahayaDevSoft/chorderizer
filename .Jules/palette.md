@@ -1,4 +1,3 @@
-
-## 2024-05-18 - Discovering Accessibility Power in Textual TUIs
-**Learning:** Textual TUI applications inherently lack standard web-like hover affordances for accessibility, making complex panels like the Chorderizer dashboard potentially difficult to parse for screen reader users or new users. However, we discovered that `tooltip` attributes are a powerful, universally supported prop across Textual interactive widgets (`Select`, `RadioSet`, `Button`, `DataTable`), providing vital contextual guidance.
-**Action:** Always leverage `tooltip` attributes on interactive elements in TUI dashboard layouts to provide inline assistance, especially for domain-specific controls (like musical theory selections) where the UI layout must remain compact.
+## 2025-05-06 - Textual TUI Feedback Mechanisms
+**Learning:** In terminal user interfaces (TUIs) like Textual, relying solely on text-based logs for user feedback (e.g. `RichLog`) can result in actions feeling unresponsive or requiring users to context-switch to read output. Immediate transient notifications (toasts) provide much better micro-UX.
+**Action:** When working on Textual apps, proactively utilize `self.notify()` to provide immediate, transient visual feedback for user actions (like adding/removing items), instead of relying purely on static logs. Also, leverage the `.tooltip` attribute on interactive elements to guide users without cluttering the UI.
