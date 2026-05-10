@@ -51,10 +51,7 @@ def run_modern_tui():
         return False  # Signal to caller to use legacy mode
     except Exception as e:
         # Do not catch everything silently - show the error
-        import traceback
-
         render_error(f"Failed to launch dashboard: {e}")
-        print(traceback.format_exc())
         sys.exit(1)
     return True
 
