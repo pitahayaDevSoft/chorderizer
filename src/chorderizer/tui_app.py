@@ -510,6 +510,7 @@ class ChorderizerApp(App):
         self.tonic_pc = 0
         self.selected_row_data = None
         self.exit_requested_at = 0.0
+        self.clear_requested_at = 0.0
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -654,12 +655,14 @@ class ChorderizerApp(App):
 
         # Populate jam scale list
         jam_list = self.query_one("#jam-scale-list", ListView)
+        jam_list.tooltip = Translations.t("tooltip_jam_scale")
         for k, v in self.theory.AVAILABLE_SCALES.items():
             item = ListItem(Label(f" {v['name']} "), id=f"jam-scale-{k}")
             jam_list.append(item)
 
         # Populate moods
         mood_list = self.query_one("#jam-mood-list", ListView)
+        mood_list.tooltip = Translations.t("tooltip_jam_mood")
         moods = [
             "Happy",
             "Sad",
@@ -864,12 +867,31 @@ class ChorderizerApp(App):
                 "COMPOSER",
                 icon=IconManager.get("plus"),
             )
+        else:
+            self.notify(Translations.t("notify_select_chord_first"), severity="warning")
 
     def action_clear_progression(self) -> None:
-        self.query_one("#progression-sidebar", ProgressionPanel).clear_prog()
-        self.log_status(
-            Translations.t("status_list_reset"), "COMPOSER", icon=IconManager.get("broom")
-        )
+        prog_panel = self.query_one("#progression-sidebar", ProgressionPanel)
+        if not prog_panel.get_progression_data():
+            self.notify(Translations.t("sidebar_empty"), severity="warning")
+            return
+
+        import time
+
+        now = time.time()
+        if now - self.clear_requested_at < 2.0:
+            prog_panel.clear_prog()
+            self.log_status(
+                Translations.t("status_list_reset"), "COMPOSER", icon=IconManager.get("broom")
+            )
+        else:
+            self.clear_requested_at = now
+            self.log_status(
+                Translations.t("prog_clear_confirm"),
+                "COMPOSER",
+                icon=IconManager.get("warn"),
+            )
+            self.notify(Translations.t("prog_clear_confirm"), severity="warning")
 
     def action_export_midi(self) -> None:
         prog_panel = self.query_one("#progression-sidebar", ProgressionPanel)
