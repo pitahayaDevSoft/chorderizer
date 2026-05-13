@@ -149,16 +149,16 @@ class ConfigManager:
             try:
                 with open(self.config_path) as f:
                     return json.load(f)
-            except Exception:
-                pass
+            except (OSError, json.JSONDecodeError) as e:
+                logging.error(f"Config load failed: {e}")
         return {"theme": "chromatic-pro", "mouse_enabled": True, "advanced_mode": False}
 
     def save(self, settings: Dict[str, Any]):
         try:
             with open(self.config_path, "w") as f:
                 json.dump(settings, f, indent=4)
-        except Exception:
-            pass
+        except OSError as e:
+            logging.error(f"Config save failed: {e}")
 
 
 class ThemePalette(ModalScreen):
@@ -914,7 +914,7 @@ class ChorderizerApp(App):
         except Exception as e:
             logging.error(f"MIDI export failed: {e}\n{traceback.format_exc()}")
             self.log_status(
-                Translations.t("status_export_failed", error=str(e)),
+                Translations.t("status_export_failed", error="An error occurred"),
                 "MIDI ERROR",
                 icon=IconManager.get("error"),
             )
@@ -952,7 +952,7 @@ class ChorderizerApp(App):
                 icon=IconManager.get("book"),
             )
         except Exception as e:
-            error_msg = f"Error: {e}"
+            error_msg = "An error occurred during chord update."
             logging.error(f"Chord update failed: {e}\n{traceback.format_exc()}")
             self.log_status(
                 f"[red]{error_msg}[/red]", "THEORY ERROR", icon=IconManager.get("error")

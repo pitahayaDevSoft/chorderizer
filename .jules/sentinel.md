@@ -12,3 +12,8 @@
 **Vulnerability:** Raw exception strings (e.g. `except ValueError as e: print(f"...{e}")`) were directly exposed to end users via CLI output.
 **Learning:** Returning or printing exact system exceptions to the user UI interface can unintentionally leak sensitive system paths, execution states, or dependency logic details.
 **Prevention:** Catch the exception, securely log the detailed information using `logging.error(f"...{e}")` for internal monitoring, and display a safe, generalized error message to the end user.
+
+## 2024-05-06 - Prevent Information Exposure in UI via Exception Handling
+**Vulnerability:** Raw exception strings (e.g. `str(e)`) and stack traces (`traceback.format_exc()`) were directly exposed to end users via the UI components and console print statements in `tui_app.py` and `chorderizer.py`. Furthermore, broad exception catching (`except Exception: pass`) masked logic failures.
+**Learning:** Returning or printing exact system exceptions to the user UI can unintentionally leak sensitive system paths, execution states, or dependency logic details. Broad exception catching masks unforeseen errors and interrupts normal debugging flow.
+**Prevention:** Catch the exception, securely log the detailed information using `logging.error(f"...{e}", exc_info=True)` for internal monitoring, and display a safe, generalized error message (e.g. `"An error occurred"`) to the end user. Catch specific exceptions (e.g., `OSError`) instead of broad base classes.
