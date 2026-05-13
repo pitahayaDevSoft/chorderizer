@@ -510,6 +510,7 @@ class ChorderizerApp(App):
         self.tonic_pc = 0
         self.selected_row_data = None
         self.exit_requested_at = 0.0
+        self.clear_requested_at = 0.0
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -864,12 +865,32 @@ class ChorderizerApp(App):
                 "COMPOSER",
                 icon=IconManager.get("plus"),
             )
+        else:
+            self.log_status(
+                "[bold yellow]Please select a chord first.[/bold yellow]",
+                "COMPOSER",
+                icon=IconManager.get("warn"),
+            )
+            self.notify("Please select a chord first.", severity="warning")
 
     def action_clear_progression(self) -> None:
-        self.query_one("#progression-sidebar", ProgressionPanel).clear_prog()
-        self.log_status(
-            Translations.t("status_list_reset"), "COMPOSER", icon=IconManager.get("broom")
-        )
+        import time
+
+        now = time.time()
+        if now - self.clear_requested_at < 2.0:
+            self.query_one("#progression-sidebar", ProgressionPanel).clear_prog()
+            self.log_status(
+                Translations.t("status_list_reset"), "COMPOSER", icon=IconManager.get("broom")
+            )
+            self.clear_requested_at = 0.0
+        else:
+            self.clear_requested_at = now
+            self.log_status(
+                "[bold yellow]Press [X] again to clear progression.[/bold yellow]",
+                "COMPOSER",
+                icon=IconManager.get("warn"),
+            )
+            self.notify("Press X again to clear progression", severity="warning")
 
     def action_export_midi(self) -> None:
         prog_panel = self.query_one("#progression-sidebar", ProgressionPanel)
