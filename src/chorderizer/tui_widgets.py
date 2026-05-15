@@ -244,7 +244,9 @@ class ProgressionPanel(Static):
             f"{IconManager.get('list')} {Translations.t('sidebar_title')}", classes="prog-header"
         )
         yield Label(Translations.t("sidebar_empty_desc"), id="prog-empty")
-        yield ListView(id="prog-list")
+        prog_list = ListView(id="prog-list")
+        prog_list.tooltip = Translations.t("tooltip_prog_list")
+        yield prog_list
         yield Label(
             f" [bold][A][/bold] {IconManager.get('plus')} Add  [bold][X][/bold] {IconManager.get('broom')} Clear",
             id="prog-help",

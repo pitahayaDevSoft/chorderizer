@@ -149,16 +149,16 @@ class ConfigManager:
             try:
                 with open(self.config_path) as f:
                     return json.load(f)
-            except Exception:
-                pass
+            except Exception as e:
+                logging.warning(f"Config error: {e}")
         return {"theme": "chromatic-pro", "mouse_enabled": True, "advanced_mode": False}
 
     def save(self, settings: Dict[str, Any]):
         try:
             with open(self.config_path, "w") as f:
                 json.dump(settings, f, indent=4)
-        except Exception:
-            pass
+        except Exception as e:
+            logging.warning(f"Config error: {e}")
 
 
 class ThemePalette(ModalScreen):
@@ -636,6 +636,14 @@ class ChorderizerApp(App):
         self.query_one("#extension-set").tooltip = Translations.t("tooltip_ext")
         self.query_one("#inversion-set").tooltip = Translations.t("tooltip_inv")
         self.query_one("#btn-export").tooltip = Translations.t("tooltip_export")
+
+        # Jam Mode and Sidebar Tooltips
+        try:
+            self.query_one("#jam-scale-list").tooltip = Translations.t("tooltip_jam_scale_list")
+            self.query_one("#jam-mood-list").tooltip = Translations.t("tooltip_jam_mood_list")
+            self.query_one("#jam-tonic-select").tooltip = Translations.t("tooltip_tonic")
+        except Exception as e:
+            logging.warning(f"Could not apply some tooltips: {e}")
 
         table = self.query_one("#chord-table", DataTable)
         table.tooltip = Translations.t("tooltip_table")
