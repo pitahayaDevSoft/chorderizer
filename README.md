@@ -77,7 +77,7 @@ If you wish to contribute or run the latest development version:
 
 ```bash
 # Clone the repository
-git clone https://github.com/julesklord/chorderizer.git
+git clone https://github.com/TropicalDev/chorderizer.git
 cd chorderizer
 
 # Create and activate virtual environment
@@ -145,5 +145,5 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ---
 
-*Created with ❤️ for the musical community. Powered by Python, Textual, and Antigravity* 
+*Created with ❤️ by TropicalDev. Powered by Python, Textual, and Antigravity* 
 

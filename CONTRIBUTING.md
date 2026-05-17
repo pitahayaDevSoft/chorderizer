@@ -10,7 +10,7 @@ By participating in this project, you are expected to uphold our [Code of Conduc
 
 ### Reporting Bugs
 
-- Check the [Issue Tracker](https://github.com/julesklord/Chorderizer/issues) to see if the bug has already been reported.
+- Check the [Issue Tracker](https://github.com/TropicalDev/Chorderizer/issues) to see if the bug has already been reported.
 - If not, create a new issue. Please include:
   - A clear, descriptive title.
   - Steps to reproduce the bug.

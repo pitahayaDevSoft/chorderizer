@@ -63,10 +63,15 @@ class PianoWidget(Static):
         full_piano = Text("\n").join(rows)
         full_piano.append("\n")
         full_piano.append(label_row)
+        try:
+            primary_color = self.app.get_component_rich_style("primary").color.name
+        except Exception:
+            primary_color = "bright_blue"
+
         return Panel(
             Align.center(full_piano),
-            title=f"[bold blue]{Translations.t('piano_board')}[/bold blue]",
-            border_style="bright_blue",
+            title=f"[bold {primary_color}]{Translations.t('piano_board')}[/bold {primary_color}]",
+            border_style=primary_color,
         )
 
 
@@ -120,7 +125,7 @@ class FretboardWidget(Static):
         num_frets = max(12, min(num_frets, 24))
 
         fretboard = Text()
-        header = Text("      ")
+        header = Text("    ")
         for f in range(num_frets + 1):
             header.append(f"{f:<4}", style="dim")
         fretboard.append(header)
@@ -158,11 +163,16 @@ class FretboardWidget(Static):
             fretboard.append(line)
             fretboard.append("\n")
 
+        try:
+            secondary_color = self.app.get_component_rich_style("secondary").color.name
+        except Exception:
+            secondary_color = "yellow"
+
         mode_label = f" ({self.display_mode.upper()})"
         return Panel(
             Align.center(fretboard),
-            title=f"[bold yellow]{Translations.t('guitar_fretboard')}{mode_label}[/bold yellow]",
-            border_style="yellow",
+            title=f"[bold {secondary_color}]{Translations.t('guitar_fretboard')}{mode_label}[/bold {secondary_color}]",
+            border_style=secondary_color,
         )
 
 
@@ -188,10 +198,15 @@ class GuitarTabWidget(Static):
                 content.append(line.replace(" ", ""), style="bright_green")
                 content.append("\n")
 
+        try:
+            accent_color = self.app.get_component_rich_style("accent").color.name
+        except Exception:
+            accent_color = "bright_cyan"
+
         return Panel(
             Align.center(content, vertical="middle"),
-            title=f"[bold yellow]{Translations.t('tabs_title', chord_name=self.chord_name)}[/bold yellow]",
-            border_style="bright_cyan",
+            title=f"[bold {accent_color}]{Translations.t('tabs_title', chord_name=self.chord_name)}[/bold {accent_color}]",
+            border_style=accent_color,
         )
 
 

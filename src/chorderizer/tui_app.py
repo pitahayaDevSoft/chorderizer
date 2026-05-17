@@ -114,6 +114,7 @@ THEME_CHROMATIC = Theme(
     accent="#D0021B",  # Tonic Red
     background="#1A1A1A",
     surface="#2C2C2C",
+    boost="#252525",
     error="#FF4B2B",
     success="#7ED321",
 )
@@ -125,6 +126,7 @@ THEME_HARMONIC = Theme(
     accent="#FFD700",  # Bright Tonic
     background="#151515",
     surface="#1F1F1F",
+    boost="#1A1A1A",
 )
 
 THEME_DORIAN = Theme(
@@ -134,6 +136,27 @@ THEME_DORIAN = Theme(
     accent="#FAB1A0",  # Soft Tension
     background="#0F0F0F",
     surface="#1E1E1E",
+    boost="#151515",
+)
+
+THEME_MANGO = Theme(
+    name="mango-tropical",
+    primary="#FFB347",  # Mango Orange
+    secondary="#F0E68C",  # Khaki
+    accent="#FFCC80",
+    background="#0D1017",
+    surface="#12151C",
+    boost="#1A1D24",
+)
+
+THEME_PITAHAYA = Theme(
+    name="pitahaya-bcs",
+    primary="#FF2400",  # Pitahaya Red
+    secondary="#2E8B57",  # Sea Green
+    accent="#FF5C4D",
+    background="#05070A",
+    surface="#0D1017",
+    boost="#12151C",
 )
 
 
@@ -149,16 +172,16 @@ class ConfigManager:
             try:
                 with open(self.config_path) as f:
                     return json.load(f)
-            except Exception:
-                pass
-        return {"theme": "chromatic-pro", "mouse_enabled": True, "advanced_mode": False}
+            except Exception as e:
+                logging.warning(f"Failed to load config: {e}")
+        return {"theme": "mango-tropical", "mouse_enabled": True, "advanced_mode": False}
 
     def save(self, settings: Dict[str, Any]):
         try:
             with open(self.config_path, "w") as f:
                 json.dump(settings, f, indent=4)
-        except Exception:
-            pass
+        except Exception as e:
+            logging.error(f"Failed to save config: {e}")
 
 
 class ThemePalette(ModalScreen):
@@ -186,6 +209,8 @@ class ThemePalette(ModalScreen):
             "chromatic-pro",
             "harmonic-gold",
             "dorian-deep",
+            "mango-tropical",
+            "pitahaya-bcs",
             "textual-dark",
             "dracula",
             "nord",
@@ -269,7 +294,7 @@ class ChorderizerProvider(Provider):
                     score,
                     matcher.highlight(title),
                     action,
-                    help_text=help_text,
+                    help=help_text,
                 )
 
 
@@ -277,7 +302,7 @@ class ChorderizerApp(App):
     """Premium Adaptive Dashboard."""
 
     TITLE = "chorderizer v0.3.1"
-    SUB_TITLE = "julesklord"
+    SUB_TITLE = "TropicalDev"
 
     COMMANDS = App.COMMANDS | {ChorderizerProvider}
 
@@ -357,6 +382,7 @@ class ChorderizerApp(App):
         border-bottom: solid $accent;
         width: 100%;
         text-align: center;
+        background: $boost;
     }
     #center-col {
         width: 1fr;
@@ -370,7 +396,6 @@ class ChorderizerApp(App):
     }
     FretboardWidget {
         height: 11;
-        border: round yellow;
         margin-bottom: 1;
     }
 
@@ -487,6 +512,8 @@ class ChorderizerApp(App):
         self.register_theme(THEME_CHROMATIC)
         self.register_theme(THEME_HARMONIC)
         self.register_theme(THEME_DORIAN)
+        self.register_theme(THEME_MANGO)
+        self.register_theme(THEME_PITAHAYA)
 
         self.theory = MusicTheory()
         self.chord_gen = ChordGenerator(self.theory)
@@ -495,11 +522,17 @@ class ChorderizerApp(App):
         self.current_chords = {}
         self.current_midi = {}
         self.mouse_enabled = self.settings.get("mouse_enabled", True)
-        self.active_theme_name = self.settings.get("theme", "chromatic-pro")
+        self.active_theme_name = self.settings.get("theme", "mango-tropical")
         self.theme = self.active_theme_name
         self.disable_mouse = not self.mouse_enabled
 
-        self.pro_themes = ["chromatic-pro", "harmonic-gold", "dorian-deep"]
+        self.pro_themes = [
+            "chromatic-pro",
+            "harmonic-gold",
+            "dorian-deep",
+            "mango-tropical",
+            "pitahaya-bcs",
+        ]
         self.current_theme_idx = (
             self.pro_themes.index(self.active_theme_name)
             if self.active_theme_name in self.pro_themes

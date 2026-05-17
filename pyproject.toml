@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "chorderizer"
 version = "0.3.1"
 authors = [
-    { name = "Julio César Martinez", email = "julioglez.93@gmail.com" }
+    { name = "TropicalDev", email = "julioglez.93@gmail.com" }
 ]
 description = "Generador avanzado de progresiones de acordes MIDI con Dashboard TUI reactivo y visualizadores."
 readme = "README.md"
@@ -42,8 +42,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/julesklord/Chorderizer"
-"Bug Tracker" = "https://github.com/julesklord/Chorderizer/issues"
+"Homepage" = "https://github.com/TropicalDev/Chorderizer"
+"Bug Tracker" = "https://github.com/TropicalDev/Chorderizer/issues"
 
 [project.scripts]
 chorderizer = "chorderizer.chorderizer:main"
