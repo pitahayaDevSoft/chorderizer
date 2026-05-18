@@ -1,10 +1,26 @@
-# Chorderizer: Advanced Chord Orchestration & MIDI Analysis Dashboard
+<table border="0">
+  <tr>
+    <td valign="top">
+      <h1>Chorderizer</h1>
+      <p><strong>Advanced Chord Orchestration & MIDI Analysis Dashboard</strong><br/>
+      <em>Terminal-native harmonic workstation for composers and producers.</em></p>
+      <p>
+        <a href="https://badge.fury.io/py/chorderizer"><img src="https://badge.fury.io/py/chorderizer.svg" alt="PyPI version"></a>
+        <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+        <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python 3.8+"></a>
+        <a href="https://textual.textualize.io/"><img src="https://img.shields.io/badge/framework-Textual-0094d2.svg" alt="Framework: Textual"></a>
+      </p>
+    </td>
+  </tr>
+</table>
 
-[![PyPI version](https://badge.fury.io/py/chorderizer.svg)](https://badge.fury.io/py/chorderizer) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Framework: Textual](https://img.shields.io/badge/framework-Textual-0094d2.svg)](https://textual.textualize.io/) [![Checks: Trunk](https://img.shields.io/badge/checks-Trunk-purple.svg)](https://trunk.io/)
+---
 
-Chorderizer is a specialized Python-based orchestration tool and harmonic workstation designed for professional composers, theorists, and music producers. It provides a robust engine for exploring diatonic relationships across a wide array of musical scales, enabling precise customization of chord voicings and the generation of production-ready MIDI sequences.
+<p align="center">
+  <img src="docs/wiki/assets/demo.gif" alt="Chorderizer Dashboard Overview" width="900" />
+</p>
 
-![Chorderizer Dashboard Overview](Docs/assets/demo.gif)
+---
 
 ## Project Philosophy
 
