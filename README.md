@@ -120,24 +120,14 @@ The codebase adheres to PEP 8 standards and utilizes modern tooling to ensure st
 - **Testing Suite**: Comprehensive unit tests managed via `pytest`, ensuring integrity of the theory engine and MIDI generation.
 - **Architecture**: Modular design separating theory logic (`theory_utils.py`), MIDI generation (`generators.py`), the classic orchestration flow (`chorderizer.py` + `ui.py`), and the reactive Textual dashboard (`tui_app.py` + `tui_widgets.py`).
 
-## Maintenance Notes
+## Documentation
 
-This repository follows a maintained-project standard:
+For a comprehensive technical breakdown, architectural ADRs, and operational guides, visit our official **[Wiki](docs/wiki/index.md)**.
 
-- critical repository changes are tracked in `DECISIONS.md`
-- known trade-offs and deferred work live in `TECHNICAL_DEBT.md`
-- notable failures and broken assumptions are recorded in `FAILURES.md`
-
-## Supplementary Documentation
-
-For detailed technical specifications, refer to the following documents:
-
-- [User Guide](Docs/USER_GUIDE.md) — End-user operational details.
-- [Architecture](Docs/ARCHITECTURE.md) — System design and module interactions.
-- [API Reference](Docs/API_REFERENCE.md) — Technical documentation for engine integration.
-- [Decisions](DECISIONS.md) — Significant repository and architecture choices.
-- [Technical Debt](TECHNICAL_DEBT.md) — Deferred work with explicit exit conditions.
-- [Failures](FAILURES.md) — Production or development failures worth preserving as calibration data.
+*   **[Technical Architecture](docs/wiki/ARCHITECTURE.md)**
+*   **[User Guide](docs/wiki/USER_GUIDE.md)**
+*   **[Developer Guide](docs/wiki/DEVELOPER_GUIDE.md)**
+*   **[Agent SOP](docs/AGENT.md)**
 
 ## License
 

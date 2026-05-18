@@ -4,6 +4,7 @@ tui_widgets.py — Custom Textual widgets for Chorderizer
 
 from typing import Any, Dict, List, Set
 
+from rich import box
 from rich.align import Align
 from rich.panel import Panel
 from rich.text import Text
@@ -54,11 +55,11 @@ class PianoWidget(Static):
                         rows[r].append("█", style=black_color)
                     else:
                         rows[r].append("███", style=color)
-                    rows[r].append("|", style="grey37")
+                    rows[r].append("│", style="grey37")
 
                 label_color = "bold cyan" if is_active else "bold white"
                 label_row.append(f"{white_names[i]:^3}", style=label_color)
-                label_row.append("|", style="grey37")
+                label_row.append("│", style="grey37")
 
         full_piano = Text("\n").join(rows)
         full_piano.append("\n")
@@ -72,6 +73,7 @@ class PianoWidget(Static):
             Align.center(full_piano),
             title=f"[bold {primary_color}]{Translations.t('piano_board')}[/bold {primary_color}]",
             border_style=primary_color,
+            box=box.SQUARE,
         )
 
 
@@ -149,7 +151,7 @@ class FretboardWidget(Static):
                         interval = (pc - self.tonic_pc) % 12
                         fret_content = f"{self.INTERVAL_LABELS.get(interval, ''):^3}"
                     else:
-                        fret_content = f" {IconManager.get('dot')} "
+                        fret_content = " █ "
 
                     if is_chord_note:
                         style = "bold bright_cyan"
@@ -159,7 +161,7 @@ class FretboardWidget(Static):
                         style = "bold white"
 
                 line.append(fret_content, style=style)
-                line.append("|", style="grey37")
+                line.append("│", style="grey37")
             fretboard.append(line)
             fretboard.append("\n")
 
@@ -173,6 +175,7 @@ class FretboardWidget(Static):
             Align.center(fretboard),
             title=f"[bold {secondary_color}]{Translations.t('guitar_fretboard')}{mode_label}[/bold {secondary_color}]",
             border_style=secondary_color,
+            box=box.SQUARE,
         )
 
 
@@ -207,6 +210,7 @@ class GuitarTabWidget(Static):
             Align.center(content, vertical="middle"),
             title=f"[bold {accent_color}]{Translations.t('tabs_title', chord_name=self.chord_name)}[/bold {accent_color}]",
             border_style=accent_color,
+            box=box.SQUARE,
         )
 
 
@@ -233,8 +237,8 @@ class ProgressionPanel(Static):
         height: 1fr;
     }
     .prog-header {
-        background: $accent;
-        color: $text-primary;
+        background: $primary;
+        color: $background;
         text-align: center;
         text-style: bold;
         padding: 1;

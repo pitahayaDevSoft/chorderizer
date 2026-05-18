@@ -107,6 +107,19 @@ class ManualScreen(ModalScreen):
 
 
 # --- CUSTOM THEORY-DRIVEN THEMES ---
+THEME_MONOLITH = Theme(
+    name="monolith-ui",
+    primary="#4285f4",
+    secondary="#c5a9f5",
+    accent="#fbbf24",
+    background="#060608",
+    surface="#252a3a",
+    boost="#131720",
+    error="#f28b82",
+    success="#34a853",
+    warning="#fbbf24",
+)
+
 THEME_CHROMATIC = Theme(
     name="chromatic-pro",
     primary="#4A90E2",  # Pure Interval Blue
@@ -174,7 +187,7 @@ class ConfigManager:
                     return json.load(f)
             except Exception as e:
                 logging.warning(f"Failed to load config: {e}")
-        return {"theme": "mango-tropical", "mouse_enabled": True, "advanced_mode": False}
+        return {"theme": "monolith-ui", "mouse_enabled": True, "advanced_mode": False}
 
     def save(self, settings: Dict[str, Any]):
         try:
@@ -206,6 +219,7 @@ class ThemePalette(ModalScreen):
 
     def compose(self) -> ComposeResult:
         themes = [
+            "monolith-ui",
             "chromatic-pro",
             "harmonic-gold",
             "dorian-deep",
@@ -406,7 +420,7 @@ class ChorderizerApp(App):
     }
     DataTable {
         width: 60%;
-        border: round $primary;
+        border: solid $primary;
         margin: 0;
     }
     GuitarTabWidget {
@@ -416,7 +430,7 @@ class ChorderizerApp(App):
 
     #status-log {
         height: 8;
-        border: round $accent;
+        border: solid $accent;
         background: $surface;
         color: $text-secondary;
         padding: 0 1;
@@ -457,14 +471,14 @@ class ChorderizerApp(App):
     }
     #jam-mood-container {
         width: 1fr;
-        border: round $primary;
+        border: solid $primary;
         background: $boost;
         margin-right: 1;
         padding: 1;
     }
     #jam-list-container {
         width: 2fr;
-        border: round $accent;
+        border: solid $accent;
         background: $surface;
         padding: 1 2;
     }
@@ -492,14 +506,14 @@ class ChorderizerApp(App):
     }
     #jam-status-log {
         height: 1fr;
-        border: round $accent;
+        border: solid $accent;
         background: $surface;
         padding: 0 1;
     }
 
     .hidden { display: none; }
-    Header { background: $primary; color: $text-primary; text-style: bold; }
-    Footer { background: $surface; color: $text-secondary; }
+    Header { background: $primary; color: $background; text-style: bold; }
+    Footer { background: $primary; color: $background; text-style: bold; }
     """
 
     def __init__(self, **kwargs):
@@ -509,6 +523,7 @@ class ChorderizerApp(App):
         self.settings = self.config_mgr.settings
 
         # Register custom themes immediately
+        self.register_theme(THEME_MONOLITH)
         self.register_theme(THEME_CHROMATIC)
         self.register_theme(THEME_HARMONIC)
         self.register_theme(THEME_DORIAN)
@@ -522,11 +537,12 @@ class ChorderizerApp(App):
         self.current_chords = {}
         self.current_midi = {}
         self.mouse_enabled = self.settings.get("mouse_enabled", True)
-        self.active_theme_name = self.settings.get("theme", "mango-tropical")
+        self.active_theme_name = self.settings.get("theme", "monolith-ui")
         self.theme = self.active_theme_name
         self.disable_mouse = not self.mouse_enabled
 
         self.pro_themes = [
+            "monolith-ui",
             "chromatic-pro",
             "harmonic-gold",
             "dorian-deep",
