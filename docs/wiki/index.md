@@ -1,19 +1,29 @@
-# Chorderizer Wiki Index
+# Chorderizer Wiki: Knowledge Hub
 
-Welcome to the technical documentation of **Chorderizer**, the harmonic workstation and orchestration tool.
+Welcome to the technical documentation of **Chorderizer**, the harmonic workstation and orchestration tool. This wiki is the source of truth for architecture, engineering decisions, and user guidance.
 
-## 📖 Navigation
-- **[Architecture](./ARCHITECTURE.md)**: System design and module boundaries.
-- **[User Guide](./USER_GUIDE.md)**: End-user instructions for the TUI and CLI.
-- **[Developer Guide](./DEVELOPER_GUIDE.md)**: Local setup and contribution rules.
-- **[API Reference](./API_REFERENCE.md)**: Internal API documentation.
-- **[Decisions](./decisions.md)**: Architectural Decision Records (ADRs).
+## 📖 Table of Contents
+
+### 🚀 Getting Started
+- **[Home](./Home.md)**: Project overview and core mission.
+- **[User Guide](./USER_GUIDE.md)**: Comprehensive manual for composers and producers.
+- **[Installation](./USER_GUIDE.md#installation)**: Quick setup guide.
+
+### 🛠 Engineering & Development
+- **[Architecture](./ARCHITECTURE.md)**: System design, module boundaries, and MIDI engine.
+- **[Developer Guide](./DEVELOPER_GUIDE.md)**: Local setup, `uv/pip` workflows, and testing.
+- **[API Reference](./API_REFERENCE.md)**: Technical documentation for theory engine integration.
 - **[Technical Debt](./technical_debt.md)**: Known trade-offs and deferred work.
+
+### 🏛 Project Governance
+- **[Decisions](./decisions.md)**: Architectural Decision Records (ADRs).
 - **[Failures](./failures.md)**: Post-mortems and learning opportunities.
 - **[Agent SOP](../AGENT.md)**: Operational rules for AI agents.
 
-## 🚀 Quick Start
-```bash
-pip install chorderizer
-python -m chorderizer.chorderizer
-```
+## 📦 Assets & Audits
+- **[Assets](./assets/)**: Visual resources and logos.
+- **[Audits](./audits/)**: Security and code quality reports.
+
+---
+**Status**: v0.2.x (Active Development)  
+**Maintenance**: [TropicalDev](https://github.com/TropicalDevApps)
