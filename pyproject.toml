@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "chorderizer"
-version = "0.3.1"
+version = "0.3.2"
 authors = [
     { name = "TropicalDev", email = "julioglez.93@gmail.com" }
 ]

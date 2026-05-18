@@ -357,7 +357,7 @@ def process_single_run(
 def main() -> None:
     """Application entry point."""
     parser = argparse.ArgumentParser(description="Chorderizer — Advanced Chord Generator")
-    parser.add_argument("--version", action="version", version="Chorderizer 0.3.0")
+    parser.add_argument("--version", action="version", version="Chorderizer 0.3.2")
     parser.add_argument(
         "--legacy",
         action="store_true",
