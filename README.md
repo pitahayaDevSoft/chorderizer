@@ -1,5 +1,8 @@
 <table border="0">
   <tr>
+    <td width="200" align="center" valign="top">
+      <img src="docs/wiki/assets/logo.svg" width="180" alt="Chorderizer logo">
+    </td>
     <td valign="top">
       <h1>Chorderizer</h1>
       <p><strong>Advanced Chord Orchestration & MIDI Analysis Dashboard</strong><br/>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background pattern -->
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.04)" />
+    </pattern>
+    
+    <!-- MonolithUI Inset Well Filter -->
+    <filter id="inset-well" x="-10%" y="-10%" width="120%" height="120%">
+      <feOffset dx="0" dy="4"/>
+      <feGaussianBlur stdDeviation="6" result="offset-blur"/>
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+      <feFlood flood-color="black" flood-opacity="0.6" result="color"/>
+      <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+    </filter>
+
+    <!-- MonolithUI Shadow -->
+    <filter id="shadow-md" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="black" flood-opacity="0.4" />
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="black" flood-opacity="0.2" />
+    </filter>
+
+    <!-- Neon Glow -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Brand Plasma Core Gradient -->
+    <linearGradient id="plasma" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Surface (Surface 1) -->
+  <rect width="512" height="512" rx="96" fill="#0c0e12" />
+  
+  <!-- Subtle Top Edge Highlight -->
+  <rect x="2" y="2" width="508" height="508" rx="94" fill="transparent" stroke="rgba(255,255,255,0.06)" stroke-width="2" />
+  
+  <!-- Dotted Grid -->
+  <rect width="512" height="512" rx="96" fill="url(#dots)" />
+
+  <!-- Inner Well (Surface 0) -->
+  <rect x="80" y="80" width="352" height="352" rx="32" fill="#060608" filter="url(#inset-well)" />
+  <rect x="80" y="80" width="352" height="352" rx="32" fill="transparent" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+
+  <!-- MIDI Tracks (Horizontal grid lines) -->
+  <line x1="80" y1="168" x2="432" y2="168" stroke="rgba(255,255,255,0.02)" stroke-width="2" />
+  <line x1="80" y1="256" x2="432" y2="256" stroke="rgba(255,255,255,0.02)" stroke-width="2" />
+  <line x1="80" y1="344" x2="432" y2="344" stroke="rgba(255,255,255,0.02)" stroke-width="2" />
+
+  <!-- MIDI Notes forming an ascending triad chord -->
+  <g filter="url(#shadow-md)">
+    <!-- Root -->
+    <rect x="120" y="320" width="80" height="48" rx="8" fill="url(#plasma)" filter="url(#glow)" />
+    <rect x="120" y="320" width="80" height="4" rx="2" fill="rgba(255,255,255,0.5)" />
+    
+    <!-- Third -->
+    <rect x="216" y="232" width="80" height="48" rx="8" fill="url(#plasma)" filter="url(#glow)" />
+    <rect x="216" y="232" width="80" height="4" rx="2" fill="rgba(255,255,255,0.5)" />
+    
+    <!-- Fifth -->
+    <rect x="312" y="144" width="80" height="48" rx="8" fill="url(#plasma)" filter="url(#glow)" />
+    <rect x="312" y="144" width="80" height="4" rx="2" fill="rgba(255,255,255,0.5)" />
+  </g>
+
+  <!-- Monolith UI Decorative Terminal Dots (Top Left) -->
+  <circle cx="104" cy="104" r="4" fill="rgba(255,255,255,0.1)" />
+  <circle cx="120" cy="104" r="4" fill="rgba(255,255,255,0.1)" />
+  <circle cx="136" cy="104" r="4" fill="rgba(255,255,255,0.1)" />
+</svg>
