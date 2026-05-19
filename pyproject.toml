@@ -42,8 +42,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/TropicalDev/Chorderizer"
-"Bug Tracker" = "https://github.com/TropicalDev/Chorderizer/issues"
+"Homepage" = "https://github.com/TropicalDevApps/Chorderizer"
+"Bug Tracker" = "https://github.com/TropicalDevApps/Chorderizer/issues"
 
 [project.scripts]
 chorderizer = "chorderizer.chorderizer:main"
