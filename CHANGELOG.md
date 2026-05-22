@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.3] - 2026-05-22
+
+### Added
+- **Advanced Voice Leading Rules**: Enhanced the `VoiceLeader` algorithm to evaluate and support music theory rules.
+  - **Common Tone Retention**: Grants a harmonic advantage (cost reduction) to voices that maintain the exact same MIDI pitch in transitions.
+  - **Parallel Interval Avoidance**: Imposed heavy cost penalties on transitions that produce parallel perfect fifths, perfect fourths, or perfect octaves in relation to other parts.
+- **Robust Unit Testing**: Added unit tests `test_voice_leader_common_tone_retention` and `test_voice_leader_avoids_parallel_fifths` to guarantee harmonic rule adherence.
+
+### Fixed
+- **Python 3.15 Deprecation Warning**: Replaced the deprecated `locale.getdefaultlocale()` with a robust Windows-compatible `locale.getlocale()` normalization routine in `translations.py`.
+
+## [0.3.2] - 2026-05-17
+
+### Added
+- **Automated Publishing Pipeline**: Integrated GitHub Actions workflow (`python-publish.yml`) for automated package distribution to PyPI via Trusted Publishing.
+- **Technical Wiki**: Initialized and consolidated a comprehensive project-wide documentation wiki located under `docs/wiki`.
+- **Developer Guidelines**: Created developer guides, setup instructions, and workflows to streamline codebase onboarding.
+
+### Changed
+- **Project Metadata**: Updated project URLs and references in `pyproject.toml` to track `TropicalDevApps`.
+
 ## [0.3.1] - 2026-05-04
 
 ### Added
