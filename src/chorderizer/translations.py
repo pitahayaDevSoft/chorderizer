@@ -474,12 +474,24 @@ class Translations:
 
         try:
             # Try to get system language
-            lang, _ = locale.getdefaultlocale()
+            lang, _ = locale.getlocale()
             if lang:
-                lang_code = lang[:2].lower()
-                if lang_code in cls.SUPPORTED:
-                    cls._lang = lang_code
-                    return cls._lang
+                lang_lower = lang.lower()
+                if lang_lower.startswith(("spanish", "es")):
+                    cls._lang = "es"
+                    return "es"
+                elif lang_lower.startswith(("portuguese", "pt")):
+                    cls._lang = "pt"
+                    return "pt"
+                elif lang_lower.startswith(("russian", "ru")):
+                    cls._lang = "ru"
+                    return "ru"
+                elif lang_lower.startswith(("chinese", "zh")):
+                    cls._lang = "zh"
+                    return "zh"
+                elif lang_lower.startswith(("english", "en")):
+                    cls._lang = "en"
+                    return "en"
         except Exception as e:
             logging.debug(f"Language detection failed: {e}")
 

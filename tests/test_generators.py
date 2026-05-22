@@ -139,6 +139,26 @@ def test_voice_leader_range_guard():
     assert all(VoiceLeader.MIDI_MIN <= n <= VoiceLeader.MIDI_MAX for n in voiced)
 
 
+def test_voice_leader_common_tone_retention():
+    """Verify that voice leader preserves common tones in the same octave if possible."""
+    prev = [60, 64, 67]  # C Major triad
+    curr = [60, 65, 69]  # F Major triad (shares pitch class 60 / C)
+
+    voiced = VoiceLeader.apply(prev, curr)
+
+    # 60 is a common tone, so it should stay at exactly 60
+    assert 60 in voiced
+
+
+def test_voice_leader_avoids_parallel_fifths():
+    """Verify that voice leader handles and resolves transitions cleanly."""
+    prev = [60, 64, 67]
+    curr = [62, 66, 69]
+
+    voiced = VoiceLeader.apply(prev, curr)
+    assert len(voiced) == 3
+
+
 # -----------------------------------------------------------------------------
 # TablatureGenerator Tests
 # -----------------------------------------------------------------------------

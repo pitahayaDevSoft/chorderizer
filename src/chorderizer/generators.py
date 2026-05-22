@@ -411,9 +411,29 @@ class VoiceLeader:
                 # Extension note: map to highest existing voice or just stay close to the rest
                 target = prev_notes[-1]
 
-            # Find the candidate that minimizes total motion from the target voice
-            # with a slight bias towards staying in a "comfortable" range
-            best = min(candidates, key=lambda c: abs(c - target) + (0.1 * abs(c - 60)))
+            # Find the candidate that minimizes total motion, avoids parallel fifths/fourths/octaves,
+            # and encourages common tone retention.
+            def candidate_cost(c: int) -> float:
+                cost = float(abs(c - target)) + 0.1 * float(abs(c - 60))
+
+                # Common Tone Retention
+                if c == target:
+                    cost -= 2.0
+
+                # Parallel Fifths/Fourths/Octaves Avoidance
+                if i < len(prev_notes):
+                    m_i = c - prev_notes[i]
+                    for j in range(i):
+                        if j < len(prev_notes):
+                            prev_interval = (prev_notes[i] - prev_notes[j]) % 12
+                            curr_interval = (c - result[j]) % 12
+                            if prev_interval in (0, 5, 7) and curr_interval == prev_interval:
+                                m_j = result[j] - prev_notes[j]
+                                if (m_i > 0 and m_j > 0) or (m_i < 0 and m_j < 0):
+                                    cost += 50.0
+                return cost
+
+            best = min(candidates, key=candidate_cost)
             result.append(best)
 
         # No need to re-sort as we ensured i > i-1 during generation

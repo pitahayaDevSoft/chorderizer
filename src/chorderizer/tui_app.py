@@ -315,7 +315,7 @@ class ChorderizerProvider(Provider):
 class ChorderizerApp(App):
     """Premium Adaptive Dashboard."""
 
-    TITLE = "chorderizer v0.3.2"
+    TITLE = "chorderizer v0.3.3"
     SUB_TITLE = "TropicalDev"
 
     COMMANDS = App.COMMANDS | {ChorderizerProvider}
