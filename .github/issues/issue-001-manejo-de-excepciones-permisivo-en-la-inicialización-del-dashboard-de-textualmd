@@ -1,0 +1,36 @@
+# ISSUE-001 // Manejo de excepciones permisivo en la inicialización del dashboard de Textual
+
+**Type**: Mejora
+**Severity**: Baja
+**Component**: TUI/CLI Fallback
+
+---
+
+## 1. Descripción del Problema
+El método 'run_modern_tui()' encapsula la importación del dashboard de Textual y captura 'ImportError' para activar el modo fallback de CLI secuencial clásico. Sin embargo, si Textual está presente pero ocurre una falla interna (ej. fallas secundarias de dependencias, un 'ModuleNotFoundError' de librerías embebidas en textual, o un error de atributos), la ejecución entra en el bloque genérico 'Exception' que imprime la traza cruda y aborta el script completo con 'sys.exit(1)', en lugar de activar el comportamiento seguro de fallback clásico.
+
+## 2. Ubicación del Código
+- **Archivo**: [chorderizer.py](file:///K:/source/repos/Chorderizer/src/chorderizer/chorderizer.py)
+- **Línea(s)**: 41-59
+
+## 3. Comportamiento Esperado vs. Comportamiento Actual
+- **Actual**: El método 'run_modern_tui()' encapsula la importación del dashboard de Textual y captura 'ImportError' para activar el modo fallback de CLI secuencial clásico. Sin embargo, si Textual está presente pero ocurre una falla interna (ej. fallas secundarias de dependencias, un 'ModuleNotFoundError' de librerías embebidas en textual, o un error de atributos), la ejecución entra en el bloque genérico 'Exception' que imprime la traza cruda y aborta el script completo con 'sys.exit(1)', en lugar de activar el comportamiento seguro de fallback clásico.
+- **Esperado**: Cualquier problema de carga o dependencias insatisfechas en el dashboard Textual debería disparar elegantemente la degradación pacífica al modo de comandos básico.
+
+## 4. Pasos para Reproducir / Escenario Crítico
+1. Provocar un error de importación interna en el paquete 'tui_app' o desinstalar un sub-paquete de Textual.
+2. Arrancar Chorderizer sin la opción '--legacy'.
+3. Verificar cómo el sistema crashea bruscamente con un volcado completo de traza en lugar de abrir el asistente CLI alternativo.
+
+## 5. Propuesta de Solución
+Capturar explícitamente tanto `ImportError` como `ModuleNotFoundError` en el bloque principal de importación de Textual:
+```python
+try:
+    from .tui_app import ChorderizerApp
+    app = ChorderizerApp()
+    app.run()
+except (ImportError, ModuleNotFoundError) as e:
+    render_error(f"Textual or a dependency is missing: {e}")
+    render_warn("Falling back to basic CLI mode...")
+    return False
+```
